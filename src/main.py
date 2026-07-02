@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from typing import List, Dict, Any
+from src.summary import build_summary
 
 
 app = FastAPI(
@@ -19,19 +20,5 @@ def get_info():
 
 @app.post("/report-summary")
 def get_summary(records: List[Dict[str, Any]], limit: int = 2):
-    if not records:
-        return {
-        "title": "Generated Data Summary",
-        "total_records": 0,
-        "fields": [],
-        "preview": []
-    }
-
-    fields = list(records[0].keys())
-
-    return{
-        "title": "Generated Data Summary",
-        "total_records": len(records),
-        "fields": fields,
-        "preview": records[:limit]
-    }
+    result = build_summary(records, "Sample Data Report", limit)
+    return result
