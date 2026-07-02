@@ -16,4 +16,29 @@ def get_info():
         "goal": "Learn how to expose data-tool logic through API endpoints"
     }
 
-
+@app.get("/report-summary")
+def get_summary():
+    records = [
+        {
+            "product_title": "Black Shirt",
+            "price": "29.99",
+            "sku": "SKU001"
+        },
+        {
+            "product_title": "White Shirt",
+            "price": "24.99",
+            "sku": "SKU002"
+        },
+        {
+            "product_title": "Blue Hoodie",
+            "price": "49.99",
+            "sku": "SKU003"
+        }
+    ]
+    fields = list(records[0].keys())
+    return{
+        "title": "Sample Data Report",
+        "total_records": len(records),
+        "fields": fields,
+        "preview": records[:2]
+    }
