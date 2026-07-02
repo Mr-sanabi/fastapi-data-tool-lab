@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from typing import List, Dict, Any
 
 
 app = FastAPI(
@@ -16,28 +17,20 @@ def get_info():
         "goal": "Learn how to expose data-tool logic through API endpoints"
     }
 
-@app.get("/report-summary")
-def get_summary(limit: int = 2):
-    records = [
-        {
-            "product_title": "Black Shirt",
-            "price": "29.99",
-            "sku": "SKU001"
-        },
-        {
-            "product_title": "White Shirt",
-            "price": "24.99",
-            "sku": "SKU002"
-        },
-        {
-            "product_title": "Blue Hoodie",
-            "price": "49.99",
-            "sku": "SKU003"
-        }
-    ]
+@app.post("/report-summary")
+def get_summary(records: List[Dict[str, Any]], limit: int = 2):
+    if not records:
+        return {
+        "title": "Generated Data Summary",
+        "total_records": 0,
+        "fields": [],
+        "preview": []
+    }
+
     fields = list(records[0].keys())
+
     return{
-        "title": "Sample Data Report",
+        "title": "Generated Data Summary",
         "total_records": len(records),
         "fields": fields,
         "preview": records[:limit]
