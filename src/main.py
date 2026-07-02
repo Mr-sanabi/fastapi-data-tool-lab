@@ -17,7 +17,7 @@ def get_info():
     }
 
 @app.get("/report-summary")
-def get_summary():
+def get_summary(limit: int = 2):
     records = [
         {
             "product_title": "Black Shirt",
@@ -40,5 +40,5 @@ def get_summary():
         "title": "Sample Data Report",
         "total_records": len(records),
         "fields": fields,
-        "preview": records[:2]
+        "preview": records[:limit]
     }
