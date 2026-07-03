@@ -75,6 +75,28 @@ Open Swagger docs:
       }
     ]
 
+## Run with Docker
+
+Build the Docker image:
+
+    docker build -t fastapi-data-tool-lab .
+
+Run the container:
+
+    docker run --rm -p 8000:8000 fastapi-data-tool-lab
+
+Open Swagger docs:
+
+    http://127.0.0.1:8000/docs
+
+If port 8000 is already in use, run the container on another local port:
+
+    docker run --rm -p 8001:8000 fastapi-data-tool-lab
+
+Then open:
+
+    http://127.0.0.1:8001/docs
+    
 ## What I Practiced
 
 - Creating a FastAPI application
