@@ -1,33 +1,21 @@
 # FastAPI Data Tool Lab
 
-A deliberately small learning lab that exposes reusable dataset-summary logic through a typed HTTP API.
+A small learning API that summarizes JSON records. Not a production service.
 
-> This repository is a lab, not a production service.
-
-## Endpoints
-
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/info` | Project metadata |
-| `POST` | `/report-summary?limit=2` | Summarize JSON records and return a preview |
-
-## Run locally
+## Run
 
 ```bash
 python -m pip install -r requirements.txt
 uvicorn src.main:app --reload
 ```
 
-Example request:
+Send `POST /report-summary?limit=2` with:
 
 ```json
-{
-  "title": "Customer export",
-  "records": [{"id": 1, "name": "Ada"}, {"id": 2, "email": "grace@example.com"}]
-}
+{"title": "Customer export", "records": [{"id": 1, "name": "Ada"}]}
 ```
 
-The response reports the title, total records, a sorted union of fields, and a limited preview.
+The response contains the title, record count, combined field names, and a preview. `limit` accepts 1–100; `GET /info` returns project information.
 
 ## Tests
 
@@ -35,7 +23,3 @@ The response reports the title, total records, a sorted union of fields, and a l
 python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
-
-## Stack
-
-Python, FastAPI, Pydantic, Uvicorn, pytest, HTTPX.
